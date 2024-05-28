@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.jetpackcompose"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.jetpackcompose"
