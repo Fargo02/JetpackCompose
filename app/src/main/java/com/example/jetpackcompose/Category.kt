@@ -2,8 +2,6 @@ package com.example.jetpackcompose
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,18 +23,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.jetpackcompose.ui.theme.Blue
 import com.example.jetpackcompose.ui.theme.Grey
-import com.example.jetpackcompose.ui.theme.Grey40
 import com.example.jetpackcompose.ui.theme.GreyLight
 import com.example.jetpackcompose.ui.theme.interFamily
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
-fun CategoryItem(item: ItemCategory){
+fun MakeCategoryItem(itemCategory: CategoryItem){
     val backgroundColor = remember {
         mutableStateOf(Color.White)
     }
@@ -65,12 +60,20 @@ fun CategoryItem(item: ItemCategory){
             modifier = Modifier.fillMaxWidth()
         ) {
             Icon(
-                painter = painterResource(item.image),
+                painter = painterResource(
+                    when(itemCategory.category){
+                        "Отель" -> R.drawable.hotel
+                        "Homestay" -> R.drawable.homestay
+                        "Квартира" -> R.drawable.apart
+                        "Дом" -> R.drawable.house
+                        else -> R.drawable.house
+                    }
+                ),
                 contentDescription = "notification",
                 modifier = Modifier
                     .size(24.dp)
             )
-            Text(text = item.title,
+            Text(text = itemCategory.category,
                 fontSize = 14.sp,
                 fontFamily = interFamily,
                 fontWeight = FontWeight.Medium,
@@ -81,24 +84,31 @@ fun CategoryItem(item: ItemCategory){
 }
 
 @Composable
-fun Category() {
+fun Category(categoryItem: ArrayList<CategoryItem>) {
     LazyRow(
         modifier = Modifier.fillMaxWidth().background(Color.Red),
         contentPadding = PaddingValues(8.dp)
 
     ){
         itemsIndexed(
-            listOf(
-                ItemCategory("Отель", R.drawable.hotel),
-                ItemCategory("Homestay", R.drawable.homestay),
-                ItemCategory("Квартира", R.drawable.apart),
-                ItemCategory("Дом", R.drawable.house)
-            )
+            categoryItem
         ){
                 _, item ->
-            CategoryItem(
-                item = item,
+            MakeCategoryItem(
+                itemCategory = item,
             )
         }
     }
 }
+data class DataItem(
+    val name: String,
+    val rating: Int,
+    val site: String,
+    val address: String,
+    val cost: Int,
+    val imageUrl: String,
+)
+data class CategoryItem (
+    val category : String,
+    //val data: ArrayList<DataItem>
+)
