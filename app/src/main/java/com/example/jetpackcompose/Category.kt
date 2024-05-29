@@ -55,38 +55,39 @@ fun MakeCategoryItem(itemCategory: CategoryItem){
         contentPadding = PaddingValues(start = 12.dp, top = 8.dp, bottom = 8.dp, end = 18.dp),
         modifier = Modifier.padding(start = 8.dp, end = 8.dp)
         ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Icon(
-                painter = painterResource(
-                    when(itemCategory.category){
-                        "Отель" -> R.drawable.hotel
-                        "Homestay" -> R.drawable.homestay
-                        "Квартира" -> R.drawable.apart
-                        "Дом" -> R.drawable.house
-                        else -> R.drawable.house
-                    }
-                ),
-                contentDescription = "notification",
-                modifier = Modifier
-                    .size(24.dp)
-            )
-            Text(text = itemCategory.category,
-                fontSize = 14.sp,
-                fontFamily = interFamily,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.offset(x = 6.dp)
-            )
-        }
+//        Row(
+//            verticalAlignment = Alignment.CenterVertically,
+//            modifier = Modifier.fillMaxWidth()
+//        ) {
+//            Icon(
+//                painter = painterResource(
+//                    when(itemCategory.category){
+//                        "Отель" -> R.drawable.hotel
+//                        "Homestay" -> R.drawable.homestay
+//                        "Квартира" -> R.drawable.apart
+//                        "Дом" -> R.drawable.house
+//                        else -> R.drawable.house
+//                    }
+//                ),
+//                contentDescription = "notification",
+//                modifier = Modifier
+//                    .size(24.dp)
+//            )
+//            Text(text = itemCategory.category,
+//                fontSize = 14.sp,
+//                fontFamily = interFamily,
+//                fontWeight = FontWeight.Medium,
+//                modifier = Modifier.offset(x = 6.dp)
+//            )
+//        }
     }
 }
 
 @Composable
 fun Category(categoryItem: ArrayList<CategoryItem>) {
     LazyRow(
-        modifier = Modifier.fillMaxWidth().background(Color.Red),
+        modifier = Modifier.fillMaxWidth()
+            .background(Color.Red),
         contentPadding = PaddingValues(8.dp)
 
     ){
@@ -102,7 +103,7 @@ fun Category(categoryItem: ArrayList<CategoryItem>) {
 }
 data class DataItem(
     val name: String,
-    val rating: Int,
+    val rating: Double,
     val site: String,
     val address: String,
     val cost: Int,
@@ -110,5 +111,5 @@ data class DataItem(
 )
 data class CategoryItem (
     val category : String,
-    //val data: ArrayList<DataItem>
+    val data: List<DataItem>
 )
